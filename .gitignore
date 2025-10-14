@@ -1,0 +1,23 @@
+# Node dependencies
+node_modules/
+
+# Build outputs
+.build/
+.vercel/
+.netlify/
+dist/
+
+# Environment files (keep secrets safe!)
+.env
+.env.local
+.env.production
+.env.development
+
+# Prisma artifacts
+prisma/generated/
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

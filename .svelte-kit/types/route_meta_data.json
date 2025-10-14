@@ -1,0 +1,18 @@
+{
+	"/": [],
+	"/api/recipes": [
+		"src/routes/api/recipes/+server.ts"
+	],
+	"/api/test": [
+		"src/routes/api/test/+server.ts"
+	],
+	"/app": [],
+	"/login": [],
+	"/recipes": [
+		"src/routes/recipes/+page.server.ts"
+	],
+	"/recipes/new": [
+		"src/routes/recipes/new/+page.server.ts"
+	],
+	"/signup": []
+}
