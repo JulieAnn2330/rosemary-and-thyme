@@ -1,10 +1,13 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+page.server.ts"
+	],
 	"/api/recipes": [
 		"src/routes/api/recipes/+server.ts"
 	],
-	"/api/test": [
-		"src/routes/api/test/+server.ts"
+	"/api/recipes/[id]": [
+		"src/routes/api/recipes/[id]/+page.server.ts",
+		"src/routes/api/recipes/[id]/+server.ts"
 	],
 	"/app": [],
 	"/login": [],

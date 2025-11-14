@@ -1,43 +1,35 @@
 import { PrismaClient } from '@prisma/client';
+import type { RequestHandler } from './$types';
+
 const prisma = new PrismaClient();
 
-export async function GET() {
-  try {
-    const recipes = await prisma.recipe.findMany({
-      include: { user: true }
-    });
-    return new Response(JSON.stringify(recipes), {
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (err) {
-    console.error('Error fetching recipes:', err);
-    return new Response('Internal Server Error', { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-}
+export const GET: RequestHandler = async () => {
+  const recipes = await prisma.recipe.findMany({
+    orderBy: { createdAt: 'desc' },
+    select: { id: true, title: true, description: true, createdAt: true }
+  });
+  return new Response(JSON.stringify(recipes), {
+    headers: { 'content-type': 'application/json' }
+  });
+};
 
-export async function POST({ request }) {
-  try {
-    const data = await request.json();
+export const POST: RequestHandler = async ({ request }) => {
+  const form = await request.formData();
+  const title = (form.get('title') as string)?.trim();
+  const description = (form.get('description') as string)?.trim() || null;
+  const ingredients = (form.get('ingredients') as string || '')
+    .split('\n').map(s => s.trim()).filter(Boolean);
+  const instructions = (form.get('instructions') as string || '')
+    .split('\n').map(s => s.trim()).filter(Boolean);
 
-    const newRecipe = await prisma.recipe.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        ingredients: data.ingredients || [],
-        instructions: data.instructions || []
-      }
-    });
+  if (!title) return new Response('Title required', { status: 400 });
 
-    return new Response(JSON.stringify(newRecipe), {
-      status: 201,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (err) {
-    console.error('Error creating recipe:', err);
-    return new Response('Internal Server Error', { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-}
+  const created = await prisma.recipe.create({
+    data: { title, description, ingredients, instructions }
+  });
+
+  return new Response(JSON.stringify(created), {
+    headers: { 'content-type': 'application/json' },
+    status: 201
+  });
+};

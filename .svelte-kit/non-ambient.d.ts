@@ -27,22 +27,22 @@ export {};
 
 declare module "$app/types" {
 	export interface AppTypes {
-		RouteId(): "/" | "/api" | "/api/recipes" | "/api/test" | "/app" | "/login" | "/recipes" | "/recipes/new" | "/signup";
+		RouteId(): "/" | "/api" | "/api/recipes" | "/api/recipes/[id]" | "/app" | "/login" | "/recipes" | "/recipes/new" | "/signup";
 		RouteParams(): {
-			
+			"/api/recipes/[id]": { id: string }
 		};
 		LayoutParams(): {
-			"/": Record<string, never>;
-			"/api": Record<string, never>;
-			"/api/recipes": Record<string, never>;
-			"/api/test": Record<string, never>;
+			"/": { id?: string };
+			"/api": { id?: string };
+			"/api/recipes": { id?: string };
+			"/api/recipes/[id]": { id: string };
 			"/app": Record<string, never>;
 			"/login": Record<string, never>;
 			"/recipes": Record<string, never>;
 			"/recipes/new": Record<string, never>;
 			"/signup": Record<string, never>
 		};
-		Pathname(): "/" | "/api" | "/api/" | "/api/recipes" | "/api/recipes/" | "/api/test" | "/api/test/" | "/app" | "/app/" | "/login" | "/login/" | "/recipes" | "/recipes/" | "/recipes/new" | "/recipes/new/" | "/signup" | "/signup/";
+		Pathname(): "/" | "/api" | "/api/" | "/api/recipes" | "/api/recipes/" | `/api/recipes/${string}` & {} | `/api/recipes/${string}/` & {} | "/app" | "/app/" | "/login" | "/login/" | "/recipes" | "/recipes/" | "/recipes/new" | "/recipes/new/" | "/signup" | "/signup/";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): string & {};
 	}

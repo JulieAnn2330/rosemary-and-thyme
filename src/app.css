@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Optional global app styles ---- */
+
+/* Gives your app a clean, cozy neutral background and readable text */
+html, body {
+  @apply bg-neutral-50 text-neutral-800 min-h-screen;
+}
+
+/* Smooth transition for theme or layout changes */
+* {
+  @apply transition-colors duration-150;
+}
+
+/* Some reusable utility classes for consistency */
+.input {
+  @apply w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-brand-300;
+}
+
+.textarea {
+  @apply w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-brand-300;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg bg-brand-600 px-4 py-2
+         font-medium text-white shadow hover:bg-brand-700 disabled:opacity-60 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-lg border border-neutral-300
+         bg-white px-4 py-2 font-medium text-neutral-800 shadow hover:bg-neutral-50;
+}
+
+.card {
+  @apply rounded-xl bg-white shadow border border-neutral-200;
+}
+
